@@ -18,3 +18,9 @@
 <!-- Atlantis JS -->
 <!-- <script src="/assets/js/atlantis.min.js"></script> -->
 <script src="/assets/build/js/script.min.js"></script>
+<script>
+    $(document).ajaxStart(function() {
+        Pace.restart()
+    });
+    $('.deskripsi-area img').addClass('img-fluid');
+</script>

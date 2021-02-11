@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class MenuModel extends Model
 {
     protected $table      = 'users_menu';
-    protected $allowedFields = ['id', 'menu', 'icon'];
+    protected $allowedFields = ['id', 'menu', 'icon', 'num_order'];
 
     public function deleteSub($id)
     {
@@ -38,9 +38,13 @@ class MenuModel extends Model
 
     public function listMenu()
     {
+        $exceptMenu = ['info', 'profil'];
+        if (session()->get("role_id") == 2) array_push($exceptMenu, 'fundraiser', 'pencairan');
         $menu = $this->db->table("users_access_menu")
-            ->select("users_menu.*")->join("users_menu","users_menu.id = users_access_menu.menu_id")
+            ->select("users_menu.*")->join("users_menu", "users_menu.id = users_access_menu.menu_id")
             ->where(['users_access_menu.role_id' => session()->get("role_id")])
+            ->orderBy("users_menu.num_order", "asc")
+            ->whereNotIn("users_menu.menu", $exceptMenu)
             ->get()->getResultArray();
         $data = [];
         $i = 0;

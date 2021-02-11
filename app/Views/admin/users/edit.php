@@ -7,6 +7,7 @@
                 <div class="card-title">Edit User</div>
             </div>
             <div class="card-body">
+                <?= $this->include('admin/layout/alert'); ?>
                 <form action="/users/update/<?= $users['id']; ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <div class="row">

@@ -7,6 +7,7 @@
                 <div class="card-title">Tambah User</div>
             </div>
             <div class="card-body">
+                <?= $this->include('admin/layout/alert'); ?>
                 <form action="/users/save" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <div class="row">
@@ -14,28 +15,28 @@
                             <div class="form-group <?= $validation->hasError("username") ? "has-error" : "" ?>">
                                 <label for="username">Username*</label>
                                 <input type="text" class="form-control" name="username" placeholder="Username" value="<?= old("username") ?>">
-                                <small id="emailHelp" class="form-text text-muted"><?= $validation->getError("username"); ?></small>
+                                <small id="emailHelp" class="form-text text-danger"><?= $validation->getError("username"); ?></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group <?= $validation->hasError("nama") ? "has-error" : "" ?>">
                                 <label for="nama">Nama Lengkap*</label>
                                 <input type="text" class="form-control" name="nama" placeholder="Nama lengkap" value="<?= old("nama") ?>">
-                                <small id="emailHelp" class="form-text text-muted"><?= $validation->getError("nama"); ?></small>
+                                <small id="emailHelp" class="form-text text-danger"><?= $validation->getError("nama"); ?></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group <?= $validation->hasError("password") ? "has-error" : "" ?>">
                                 <label for="password">Password*</label>
                                 <input type="password" class="form-control" name="password" placeholder="Password">
-                                <small id="emailHelp" class="form-text text-muted"><?= $validation->getError("password"); ?></small>
+                                <small id="emailHelp" class="form-text text-danger"><?= $validation->getError("password"); ?></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group <?= $validation->hasError("pass_confirm") ? "has-error" : "" ?>">
                                 <label for="pass_confirm">Ulangi Password*</label>
                                 <input type="password" class="form-control" name="pass_confirm" placeholder="Ulangi password">
-                                <small id="emailHelp" class="form-text text-muted"><?= $validation->getError("pass_confirm"); ?></small>
+                                <small id="emailHelp" class="form-text text-danger"><?= $validation->getError("pass_confirm"); ?></small>
                             </div>
                         </div>
                         <!-- <div class="col-md-6">
@@ -55,14 +56,14 @@
                             <div class="form-group <?= $validation->hasError("email") ? "has-error" : "" ?>">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" name="email" placeholder="Email" value="<?= old("email") ?>">
-                                <small id="emailHelp" class="form-text text-muted"><?= $validation->getError("email"); ?></small>
+                                <small id="emailHelp" class="form-text text-danger"><?= $validation->getError("email"); ?></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group <?= $validation->hasError("no_hp") ? "has-error" : "" ?>">
                                 <label for="no_hp">No Hp</label>
                                 <input type="text" class="form-control" name="no_hp" placeholder="No hp" value="<?= old("no_hp") ?>">
-                                <small id="emailHelp" class="form-text text-muted"><?= $validation->getError("no_hp"); ?></small>
+                                <small id="emailHelp" class="form-text text-danger"><?= $validation->getError("no_hp"); ?></small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -72,7 +73,7 @@
                                     <input type="file" class="custom-file-input" id="foto" name="foto" value="<?= old("foto") ?>" onchange="imagePreview()">
                                     <label class="custom-file-label">Choose file</label>
                                 </div>
-                                <small id="emailHelp" class="form-text text-muted"><?= $validation->getError("foto"); ?></small>
+                                <small id="emailHelp" class="form-text text-danger"><?= $validation->getError("foto"); ?></small>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -35,6 +35,7 @@ $routes->get('/', 'Dashboard::index');
 $routes->get('/login', 'Auth::login');
 $routes->get('/logout', 'Auth::logout');
 $routes->post('/login', 'Auth::cekLogin');
+$routes->post('/profil/changePassword', 'Profil::setPassword');
 // $routes->delete('/users/(:num)')
 /**
  * --------------------------------------------------------------------

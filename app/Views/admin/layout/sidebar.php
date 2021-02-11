@@ -32,17 +32,19 @@ $listMenu = $menuModel->listMenu();
                             <p><?= ucwords($key['menu']) ?></p>
                             <?= count($key['sub_menu']) > 0 ? "<span class='caret'></span>" : ""; ?>
                         </a>
-                        <div class="collapse <?= $url->getSegment(1) == strtolower($key['menu']) ? "show" : "" ?>" id="<?= strtolower($key['menu']) ?>">
-                            <ul class="nav nav-collapse">
-                                <?php foreach ($key['sub_menu'] as $val) : ?>
-                                    <li class="<?= $val['url'] == uri_string() ? "active" : "" ?>">
-                                        <a href="/<?= $val['url'] ?>">
-                                            <span class="sub-item"><?= ucwords($val['title']); ?></span>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                        <?php if (count($key['sub_menu']) > 0) : ?>
+                            <div class="collapse <?= $url->getSegment(1) == strtolower($key['menu']) ? "show" : "" ?>" id="<?= strtolower($key['menu']) ?>">
+                                <ul class="nav nav-collapse">
+                                    <?php foreach ($key['sub_menu'] as $val) : ?>
+                                        <li class="<?= $val['url'] == uri_string() ? "active" : "" ?>">
+                                            <a href="/<?= $val['url'] ?>">
+                                                <span class="sub-item"><?= ucwords($val['title']); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

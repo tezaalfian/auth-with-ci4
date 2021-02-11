@@ -2,7 +2,7 @@
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="blue">
         <a href="index.html" class="logo">
-            <img src="/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+            <img src="<?= CLOUD_URL . "/h_50/" ?>" alt="navbar brand" class="navbar-brand">
         </a>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
@@ -38,7 +38,8 @@
                                 <div class="quick-actions-items">
                                     <div class="row m-0">
                                         <?php $bg_color = ['bg-danger', 'bg-primary', 'bg-warning', 'bg-secondary']; ?>
-                                        <?php $i = 0; foreach ($user['role'] as $key) : ?>
+                                        <?php $i = 0;
+                                        foreach ($user['role'] as $key) : ?>
                                             <?php $role = $userModel->getRole($key); ?>
                                             <a class="col-6 col-md-4 p-0 set-role" href="#" data-nilai="<?= $key; ?>">
                                                 <div class="quick-actions-item">
@@ -68,17 +69,18 @@
                                     <div class="avatar-lg"><img src="<?= CLOUD_URL . "/w_100/" . $user['foto'] ?>" alt="image profile" class="avatar-img rounded"></div>
                                     <div class="u-text">
                                         <h4><?= ucwords($user['nama']) ?></h4>
-                                        <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                        <!-- <small>Bergabung sejak :</small> -->
+                                        <small class="badge badge-primary"><?= date("d M Y", strtotime($user['created_at'])) ?></small>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">My Profile</a>
+                                <!-- <a class="dropdown-item" href="#">My Profile</a>
                                 <a class="dropdown-item" href="#">My Balance</a>
                                 <a class="dropdown-item" href="#">Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Account Setting</a>
+                                <div class="dropdown-divider"></div> -->
+                                <a class="dropdown-item" href="/profil">My Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout">Logout</a>
                             </li>

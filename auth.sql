@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Nov 2020 pada 06.38
+-- Waktu pembuatan: 12 Feb 2021 pada 05.58
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `app_spu`
+-- Database: `app_tahfizh_v2`
 --
 
 -- --------------------------------------------------------
@@ -48,7 +48,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `nama`, `jk`, `email`, `no_hp`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('1605656263', 'admin', '$2y$10$zUWXutLl2C.xbDD9KGtyYups3Y6ZHhjLzPq.cyGG.nmQ8yWwTKxsO', 'Tahfizh Dulido', NULL, '', '', 'v1605616492/spu-app/users/1605616208', 1, '2020-11-17 06:30:11', '2020-11-17 06:30:11', NULL),
+('1605656263', 'admin', '$2y$10$.bXgg3dBkakUOsedK8OA5.3oFWzTYdv0EgZ2DVnzgXdEfUff/f3ae', 'Tahfizh Dulido', NULL, '', '', 'v1605616492/spu-app/users/1605616208', 1, '2020-11-17 06:30:11', '2021-02-11 16:56:10', NULL),
 ('1605661219', 'alfian', '$2y$10$zxyIFac8AHalf9AVJi1biePuv.jAm1OIUDdWoQq.syL3AOJUwbjJm', 'Teza Alfian', NULL, 'teza@tahfizhdulido.com', '085719994048', 'v1605661503/spu-app/users/1605661219', 1, '2020-11-17 19:00:21', '2020-11-17 19:00:21', NULL),
 ('1605728016', 'ahmad', '$2y$10$5wOl8KZHGlI52Ng8mTJabuvf8aPms8KmAHTgkzaCM99V/.gTtb4Mi', 'ahmad juna', NULL, '', '', 'v1605594452/spu-app/users/default.png', 1, '2020-11-18 13:33:36', '2020-11-18 13:40:55', '2020-11-18 13:40:55'),
 ('1605738092', 'tes', '$2y$10$3lphXkNhxQX3pMF.IA.fPO/mW/GL1l1nCpj.Ew1974wrvff6sDaE.', 'tes nama', NULL, '', '', 'v1605594452/spu-app/users/default.png', 1, '2020-11-18 16:21:32', '2020-11-18 16:21:54', '2020-11-18 16:21:54'),
@@ -71,10 +71,12 @@ CREATE TABLE `users_access_menu` (
 --
 
 INSERT INTO `users_access_menu` (`id`, `role_id`, `menu_id`) VALUES
-(7, 1, 1),
-(8, 1, 4),
-(9, 1, 5),
-(10, 2, 5);
+(11, 1, 1),
+(12, 1, 4),
+(13, 1, 5),
+(14, 1, 6),
+(15, 2, 5),
+(16, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -85,17 +87,19 @@ INSERT INTO `users_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 CREATE TABLE `users_menu` (
   `id` int(11) NOT NULL,
   `menu` varchar(125) DEFAULT NULL,
-  `icon` varchar(125) DEFAULT NULL
+  `icon` varchar(125) DEFAULT NULL,
+  `num_order` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `users_menu`
 --
 
-INSERT INTO `users_menu` (`id`, `menu`, `icon`) VALUES
-(1, 'Users', 'fa fa-users'),
-(4, 'Menu', 'fa fa-folder'),
-(5, 'Dashboard', 'fas fa-laptop');
+INSERT INTO `users_menu` (`id`, `menu`, `icon`, `num_order`) VALUES
+(1, 'Users', 'fa fa-users', 3),
+(4, 'Menu', 'fa fa-folder', 2),
+(5, 'Dashboard', 'fas fa-laptop', 1),
+(6, 'Profil', 'fa', 4);
 
 -- --------------------------------------------------------
 
@@ -215,13 +219,13 @@ ALTER TABLE `users_sub_menu`
 -- AUTO_INCREMENT untuk tabel `users_access_menu`
 --
 ALTER TABLE `users_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_menu`
 --
 ALTER TABLE `users_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_role`
@@ -239,7 +243,7 @@ ALTER TABLE `users_role_access`
 -- AUTO_INCREMENT untuk tabel `users_sub_menu`
 --
 ALTER TABLE `users_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

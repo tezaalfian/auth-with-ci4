@@ -21,9 +21,11 @@ class Menu extends BaseController
 	{
 		$input = $this->request->getVar();
 		if ($input) {
+			$menu = $this->menuModel->orderBy('num_order', 'desc')->first();
 			$data = [
 				'menu' => $input['menu'],
-				'icon' => $input['icon']
+				'icon' => $input['icon'],
+				'num_order' => (int)$menu['num_order'] + 1
 			];
 			if (!empty($id)) $data['id'] = $id;
 			$this->menuModel->save($data);

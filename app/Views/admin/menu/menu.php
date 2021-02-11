@@ -9,6 +9,7 @@
                         <i class="fa fa-plus"></i>
                         Tambah Data
                     </button>
+                    <a href="https://admin.sakupeduliumat.com/demo/font-awesome-icons.html" class="btn btn-primary text-white" target="_blank">Show Icon</a>
                 </div>
             </div>
             <div class="card-body">
@@ -81,7 +82,7 @@
         myAlert("Data Menu");
         $(document).on('click', '#btn-add', function() {
             $('#modal-save form').attr("action", "/menu/save");
-            $("#menu").val("");
+            $("input#menu").val("");
             $("#icon").val("");
         });
 
@@ -91,7 +92,7 @@
                 dataType: "json",
                 success: function(result) {
                     $('#modal-save form').attr("action", `/menu/save/${result.id}`);
-                    $("#menu").val(result.menu);
+                    $("input#menu").val(result.menu);
                     $("#icon").val(result.icon);
                 }
             })

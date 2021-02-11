@@ -3,6 +3,7 @@
 
 <head>
     <?= $this->include("admin/layout/css") ?>
+    <?= $this->renderSection("myStyle"); ?>
 </head>
 
 <body>
@@ -75,8 +76,8 @@
                 });
             }
         }
-        $(document).on("click",'.set-role',function(){
-            window.location.replace(`/dashboard/set_role/${$(this).data('nilai')}`)
+        $(document).on("click", '.set-role', function() {
+            window.location.replace(`/auth/set_role/${$(this).data('nilai')}`)
         });
     </script>
     <?= $this->renderSection("myScript"); ?>

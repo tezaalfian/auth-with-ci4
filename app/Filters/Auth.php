@@ -6,7 +6,6 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 use App\Models\UserModel;
-use CodeIgniter\CodeIgniter;
 
 class Auth implements FilterInterface
 {
@@ -18,7 +17,7 @@ class Auth implements FilterInterface
         } else {
             $userModel = new UserModel();
             $data = $userModel->isAccessed();
-            if (count($data) < 1 ) {
+            if (count($data) < 1) {
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
             }
         }

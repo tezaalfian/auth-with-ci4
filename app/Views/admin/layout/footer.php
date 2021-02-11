@@ -10,7 +10,8 @@
             </ul>
         </nav>
         <div class="copyright ml-auto">
-            <?= date("Y") ?>, made with <i class="fa fa-heart heart text-danger"></i> by <a href="/"><?= SITE_NAME ?></a>
+            Copyright © <a href="/"><?= SITE_NAME . " " . date('Y') ?></a>. All rights reserved.
+            <!-- <?= date("Y") ?>, made with <i class="fa fa-heart heart text-danger"></i> by <a href="/"><?= SITE_NAME ?></a> -->
         </div>
     </div>
 </footer>
