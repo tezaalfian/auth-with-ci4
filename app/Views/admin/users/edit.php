@@ -56,7 +56,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="avatar avatar-xxl">
-                                        <img src="<?= CLOUD_URL."w_200/".$users['foto'] ?>" alt="..." class="avatar-img rounded-circle">
+                                        <img src="<?= CLOUD_URL . "w_200/" . $users['foto'] ?>" alt="..." class="avatar-img rounded-circle">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -75,19 +75,28 @@
                             <div class="form-group">
                                 <label for="">Role</label>
                                 <?php foreach ($role as $key) : ?>
-                                    <div class="form-check" style="padding: 0;">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="<?= $key['id']; ?>" name="role[]" <?= in_array($key['id'],$users['role']) ? "checked" : "" ?>>
-                                            <span class="form-check-sign"><?= $key['role']; ?></span>
-                                        </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="<?= $key['id']; ?>" name="role[]" <?= in_array($key['id'], $users['role']) ? "checked" : "" ?>>
+                                        <label class="form-check-label"><?= $key['role']; ?></label>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="status" value="1" <?= $users['status'] == 1 ? "checked" : ""; ?>>
+                                    <label class="form-check-label">Aktif</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="status" value="0" <?= $users['status'] == 0 ? "checked" : ""; ?>>
+                                    <label class="form-check-label">Non-Aktif</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-            </div>
-            <div class="card-action">
-                <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>
         </div>

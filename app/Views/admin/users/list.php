@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Role</label>
@@ -25,23 +25,22 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table id="users-table" class="display table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Username</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>No Hp</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+                </div> -->
+                <table id="users-table" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Username</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>No Hp</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -54,18 +53,21 @@
         $("#modal-delete form").attr("action", `/users/delete/${$(this).data("nilai")}`);
     });
     myAlert("Data User");
-    loadTable();
+    $(document).ready(function() {
+        loadTable();
+    });
 
     function loadTable() {
         $('#users-table').DataTable().destroy();
         const input = {};
-        if ($('#role').val() != 0) {
-            input.role_id = $('#role').val() == 'null' ? null : $('#role').val();
-        }
-        console.log(input);
+        // if ($('#role').val() != 0) {
+        //     input.role_id = $('#role').val() == 'null' ? null : $('#role').val();
+        // }
+        // console.log(input);
         $('#users-table').DataTable({
             processing: true,
             serverSide: true,
+            scrollX: true,
             order: [],
             ajax: {
                 url: `/users/listUsers`,

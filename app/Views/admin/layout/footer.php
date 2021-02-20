@@ -1,17 +1,8 @@
-<footer class="footer">
-    <div class="container-fluid">
-        <nav class="pull-left">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <?= SITE_NAME ?>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="copyright ml-auto">
-            Copyright © <a href="/"><?= SITE_NAME . " " . date('Y') ?></a>. All rights reserved.
-            <!-- <?= date("Y") ?>, made with <i class="fa fa-heart heart text-danger"></i> by <a href="/"><?= SITE_NAME ?></a> -->
-        </div>
+<footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+        <?= SITE_NAME ?>
     </div>
+    <!-- Default to the left -->
+    <strong>Copyright © <a href="/"><?= SITE_NAME . " " . date('Y') ?></a></strong>. All rights reserved.
 </footer>

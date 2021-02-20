@@ -75,7 +75,7 @@ defined('EXIT_USER_INPUT')     || define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
-define('SITE_NAME', 'SPU APP');
-define("CLOUD_URL", "https://res.cloudinary.com/dehterav1/image/upload/");
-define('FOTO_USER', 'v1605594452/spu-app/users/default.png');
-define('LOGO_SPU', 'v1607390690/spu-app/logo_circle.png');
+define('SITE_NAME', 'TahfizhDulido');
+define("CLOUD_URL", "https://res.cloudinary.com/dmmcpkwj9/image/upload/");
+define('FOTO_USER', 'v1613694380/users/default.png');
+define('LOGO_IMG', 'v1613692704/assets/tahfizh.png');

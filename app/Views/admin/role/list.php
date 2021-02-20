@@ -12,30 +12,28 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table id="role-table" class="display table table-striped table-hover">
-                        <thead>
+                <table id="role-table" class="display table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Role</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1;
+                        foreach ($role as $key) : ?>
                             <tr>
-                                <th>No</th>
-                                <th>Role</th>
-                                <th>Aksi</th>
+                                <td><?= $no++; ?></td>
+                                <td><?= ucfirst($key['role']); ?></td>
+                                <td>
+                                    <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
+                                    <a href="/users/user_akses/<?= $key['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-info-circle"></i> Akses</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1;
-                            foreach ($role as $key) : ?>
-                                <tr>
-                                    <td><?= $no++; ?></td>
-                                    <td><?= ucfirst($key['role']); ?></td>
-                                    <td>
-                                        <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
-                                        <a href="/users/user_akses/<?= $key['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-info-circle"></i> Akses</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -68,26 +66,30 @@
             </div>
         </div>
     </div>
-    <?= $this->endSection(); ?>
+</div>
+<?= $this->endSection(); ?>
 
-    <?= $this->section("myScript"); ?>
-    <script>
-        $('#role-table').DataTable();
-        myAlert("Users Role");
-        $(document).on('click', '#btn-add', function() {
-            $('#modal-save form').attr("action", "/users/saveRole");
-            $("#role").val("");
-        });
+<?= $this->section("myScript"); ?>
+<script>
+    $('#role-table').DataTable({
+        scrollX: true,
+        autoWidth: false
+    });
+    myAlert("Users Role");
+    $(document).on('click', '#btn-add', function() {
+        $('#modal-save form').attr("action", "/users/saveRole");
+        $("#role").val("");
+    });
 
-        $(document).on("click", ".btn-edit", function() {
-            $.ajax({
-                url: `<?= '/api/users/getRole/' ?>${$(this).data('nilai')}`,
-                dataType: "json",
-                success: function(result) {
-                    $('#modal-save form').attr("action", `/users/saveRole/${result.id}`);
-                    $("#role").val(result.role);
-                }
-            })
-        });
-    </script>
-    <?= $this->endSection(); ?>
+    $(document).on("click", ".btn-edit", function() {
+        $.ajax({
+            url: `<?= '/api/users/getRole/' ?>${$(this).data('nilai')}`,
+            dataType: "json",
+            success: function(result) {
+                $('#modal-save form').attr("action", `/users/saveRole/${result.id}`);
+                $("#role").val(result.role);
+            }
+        })
+    });
+</script>
+<?= $this->endSection(); ?>

@@ -2,30 +2,172 @@
 <html lang="en">
 
 <head>
+    <?php
+    $userModel = new \App\Models\UserModel();
+    $menuModel = new \App\Models\MenuModel();
+    $url = new \CodeIgniter\HTTP\URI(base_url(uri_string()));
+    $user = $userModel->getUser(session()->get("id_user"));
+    $listMenu = $menuModel->listMenu();
+    ?>
     <?= $this->include("admin/layout/css") ?>
     <?= $this->renderSection("myStyle"); ?>
 </head>
 
-<body>
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <?= $this->include("admin/layout/header") ?>
+        <!-- header -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <!-- <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/profil" class="nav-link">Profil</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li> -->
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <?php if (count($user['role']) > 1) : ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <span class="dropdown-header"><?= count($user['role']) ?> Modul</span>
+                            <div class="dropdown-divider"></div>
+                            <?php foreach ($user['role'] as $key) : ?>
+                                <a href="#" class="dropdown-item set-role" data-nilai="<?= $key; ?>">
+                                    <?php $role = $userModel->getRole($key); ?>
+                                    <?= $role['role']; ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </li>
+                <?php endif; ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profil">
+                        <i class="far fa-user"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- end header -->
 
-        <?= $this->include("admin/layout/sidebar") ?>
+        <!-- sidebar -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="index3.html" class="brand-link">
+                <img src="<?= CLOUD_URL . "w_100/" . LOGO_IMG ?>" alt="<?= SITE_NAME ?>" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light"><?= SITE_NAME ?></span>
+            </a>
+            <div class="sidebar">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="<?= CLOUD_URL . "w_100/" . $user['foto'] ?>" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block"><?= $user['nama'] ?></a>
+                    </div>
+                </div>
+                <!-- SidebarSearch Form -->
+                <!-- <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <?php foreach ($listMenu as $key) : ?>
+                            <li class="nav-item <?= $url->getSegment(1) == strtolower($key['menu']) ? "menu-open" : "" ?>">
+                                <a href="<?= count($key['sub_menu']) > 0 ? "#" . strtolower($key['menu']) : "/" . strtolower($key['menu']) ?>" class="nav-link <?= $url->getSegment(1) == strtolower($key['menu']) ? "active" : "" ?>">
+                                    <i class="nav-icon <?= $key['icon']; ?>"></i>
+                                    <p>
+                                        <?= ucwords($key['menu']) ?>
+                                        <?= count($key['sub_menu']) > 0 ? "<i class='right fas fa-angle-left'></i>" : ""; ?>
+                                    </p>
+                                </a>
+                                <?php if (count($key['sub_menu']) > 0) : ?>
+                                    <ul class="nav nav-treeview">
+                                        <?php foreach ($key['sub_menu'] as $val) : ?>
+                                            <li class="nav-item">
+                                                <a href="/<?= $val['url'] ?>" class="nav-link <?= $val['url'] == uri_string() ? "active" : "" ?>">
+                                                    <i class="<?= $val['icon']; ?> nav-icon"></i>
+                                                    <p><?= ucwords($val['title']); ?></p>
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- end sidebar -->
         <div class="flash-data" data="<?= session()->getFlashdata('success') ?>"></div>
         <div class="flash-error" data="<?= session()->getFlashdata('error') ?>"></div>
-        <div class="main-panel">
-            <div class="container">
-                <div class="page-inner">
-                    <div class="page-header">
-                        <?= $this->include("admin/layout/breadcumd"); ?>
-                    </div>
-                    <div class="page-category">
-                        <?= $this->renderSection("content"); ?>
+        <!-- backup -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">
+                                <?php if ($url->getTotalSegments() > 0) : ?>
+                                    <?= ucfirst($url->getSegment(1)); ?>
+                                <?php else : ?>
+                                    <?= SITE_NAME ?>
+                                <?php endif; ?>
+                            </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <?php foreach ($url->getSegments() as $segment) : ?>
+                                    <?php
+                                    $uri = substr(uri_string(), 0, strpos(uri_string(), $segment)) . $segment;
+                                    $is_active =  $uri == uri_string();
+                                    ?>
+                                    <li class="breadcrumb-item <?= $is_active ? "active" : ""; ?>">
+                                        <?php if ($is_active) : ?>
+                                            <?php echo ucfirst($segment) ?>
+                                        <?php else : ?>
+                                            <a href="<?php echo base_url($uri) ?>"><?php echo ucfirst($segment) ?></a>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>
-            <?= $this->include("admin/layout/footer") ?>
+
+            <div class="content">
+                <div class="container-fluid">
+                    <?= $this->renderSection("content"); ?>
+                </div>
+            </div>
         </div>
+
+        <?= $this->include("admin/layout/footer") ?>
     </div>
     <div class="modal fade" id="modal-delete" tabindex="-1">
         <div class="modal-dialog">
@@ -52,30 +194,6 @@
     </div>
     <?= $this->include("admin/layout/js") ?>
     <script>
-        function myAlert(title) {
-            const flashdata = $('.flash-data').attr('data');
-            if (flashdata) {
-                swal(title, flashdata, {
-                    icon: "success",
-                    buttons: {
-                        confirm: {
-                            className: 'btn btn-success'
-                        }
-                    },
-                });
-            }
-            const error = $('.flash-error').attr('data');
-            if (error) {
-                swal(title, error, {
-                    icon: "error",
-                    buttons: {
-                        confirm: {
-                            className: 'btn btn-danger'
-                        }
-                    },
-                });
-            }
-        }
         $(document).on("click", '.set-role', function() {
             window.location.replace(`/auth/set_role/${$(this).data('nilai')}`)
         });

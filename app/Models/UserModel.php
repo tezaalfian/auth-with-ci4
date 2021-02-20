@@ -42,7 +42,7 @@ class UserModel extends Model
 
     public function cekUser($id)
     {
-        return $this->db->table("program")->getWhere(['created_by' => $id])->getRowArray();
+        // return $this->db->table("program")->getWhere(['created_by' => $id])->getRowArray();
     }
 
     public function saveRole($data)
@@ -84,10 +84,9 @@ class UserModel extends Model
         $menu = $uri->getSegment(1) != "" ? $uri->getSegment(1) : "dashboard";
         $q_menu = $this->db->table("users_menu")
             ->getWhere(['menu' => $menu])->getRowArray();
-        $data = $this->db->table("users_access_menu")
+        return $this->db->table("users_access_menu")
             ->getWhere(['menu_id' => $q_menu['id'], 'role_id' => $role_id])
             ->getResultArray();
-        return $data;
     }
 
     public function cekRole($id, $role_id)

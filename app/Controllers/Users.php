@@ -28,20 +28,20 @@ class Users extends BaseController
 
 	public function delete($id)
 	{
-		if ($this->request->getPost()) {
-			$cek = $this->userModel->cekUser($id);
-			if (is_null($cek)) {
-				$this->userModel->delete($id);
-				$this->userModel->deleteRole($id);
-				session()->setFlashdata("success", "Data berhasil dihapus!");
-				return redirect()->to('/users');
-			} else {
-				session()->setFlashdata("error", "Data tidak bisa dihapus!");
-				return redirect()->to('/users');
-			}
-		} else {
-			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-		}
+		// if ($this->request->getPost()) {
+		// 	$cek = $this->userModel->cekUser($id);
+		// 	if (is_null($cek)) {
+		// 		$this->userModel->delete($id);
+		// 		$this->userModel->deleteRole($id);
+		// 		session()->setFlashdata("success", "Data berhasil dihapus!");
+		// 		return redirect()->to('/users');
+		// 	} else {
+		// 		session()->setFlashdata("error", "Data tidak bisa dihapus!");
+		// 		return redirect()->to('/users');
+		// 	}
+		// } else {
+		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+		// }
 	}
 
 	public function edit($id = null)
@@ -86,7 +86,8 @@ class Users extends BaseController
 			'username' => $input['username'],
 			'nama' => $input['nama'],
 			'email' => $input['email'],
-			'no_hp' => $input['no_hp']
+			'no_hp' => $input['no_hp'],
+			'status' => $input['status']
 		];
 		// cek foto
 		$file = $this->request->getFile("foto");
@@ -241,6 +242,7 @@ class Users extends BaseController
 			$row[] = $key['nama'];
 			$row[] = $key['email'];
 			$row[] = $key['no_hp'];
+			$row[] = $key['status'] == 1 ? "<span class='badge badge-primary'>Aktif</span>" : "<span class='badge badge-danger'>Non-Aktif</span>";
 			$row[] = "<a href='/users/edit/" . $key['id'] . "' class='btn btn-sm btn-success'><i class='fa fa-edit'></i></a>
 			<button style='display:inline;' type='button' class='btn btn-sm btn-danger btn-delete' data-nilai='" . $key['id'] . "' data-toggle='modal' data-target='#modal-delete'><i class='fa fa-trash'></i></button>";
 			$data[] = $row;

@@ -36,12 +36,10 @@
                                 </tbody>
                             </table>
                         </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        </form>
                     </div>
                 </div>
-            </div>
-            <div class="card-action">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
             </div>
         </div>
     </div>

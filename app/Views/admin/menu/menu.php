@@ -9,36 +9,34 @@
                         <i class="fa fa-plus"></i>
                         Tambah Data
                     </button>
-                    <a href="https://admin.sakupeduliumat.com/demo/font-awesome-icons.html" class="btn btn-primary text-white" target="_blank">Show Icon</a>
+                    <a href="https://fontawesome.com/" class="btn btn-primary text-white" target="_blank">Show Icon</a>
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table id="menu-table" class="display table table-striped table-hover">
-                        <thead>
+                <table id="menu-table" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Menu</th>
+                            <th>Icon</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1;
+                        foreach ($menu as $key) : ?>
                             <tr>
-                                <th>No</th>
-                                <th>Menu</th>
-                                <th>Icon</th>
-                                <th>Aksi</th>
+                                <td><?= $no++; ?></td>
+                                <td><?= ucfirst($key['menu']); ?></td>
+                                <td><?= $key['icon']; ?></td>
+                                <td>
+                                    <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
+                                    <button style="display:inline;" type="button" class="btn btn-sm btn-danger btn-delete" data-nilai="<?= $key['id']; ?>" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1;
-                            foreach ($menu as $key) : ?>
-                                <tr>
-                                    <td><?= $no++; ?></td>
-                                    <td><?= ucfirst($key['menu']); ?></td>
-                                    <td><?= $key['icon']; ?></td>
-                                    <td>
-                                        <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
-                                        <button style="display:inline;" type="button" class="btn btn-sm btn-danger btn-delete" data-nilai="<?= $key['id']; ?>" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -71,31 +69,32 @@
             </div>
         </div>
     </div>
-    <?= $this->endSection(); ?>
+</div>
+<?= $this->endSection(); ?>
 
-    <?= $this->section("myScript"); ?>
-    <script>
-        $('#menu-table').DataTable();
-        $(document).on('click', '.btn-delete', function() {
-            $("#modal-delete form").attr("action", `/menu/delete/${$(this).data("nilai")}`);
-        });
-        myAlert("Data Menu");
-        $(document).on('click', '#btn-add', function() {
-            $('#modal-save form').attr("action", "/menu/save");
-            $("input#menu").val("");
-            $("#icon").val("");
-        });
+<?= $this->section("myScript"); ?>
+<script>
+    $('#menu-table').DataTable();
+    $(document).on('click', '.btn-delete', function() {
+        $("#modal-delete form").attr("action", `/menu/delete/${$(this).data("nilai")}`);
+    });
+    myAlert("Data Menu");
+    $(document).on('click', '#btn-add', function() {
+        $('#modal-save form').attr("action", "/menu/save");
+        $("input#menu").val("");
+        $("#icon").val("");
+    });
 
-        $(document).on("click", ".btn-edit", function() {
-            $.ajax({
-                url: `<?= '/api/menu/show/' ?>${$(this).data('nilai')}`,
-                dataType: "json",
-                success: function(result) {
-                    $('#modal-save form').attr("action", `/menu/save/${result.id}`);
-                    $("input#menu").val(result.menu);
-                    $("#icon").val(result.icon);
-                }
-            })
-        });
-    </script>
-    <?= $this->endSection(); ?>
+    $(document).on("click", ".btn-edit", function() {
+        $.ajax({
+            url: `<?= '/api/menu/show/' ?>${$(this).data('nilai')}`,
+            dataType: "json",
+            success: function(result) {
+                $('#modal-save form').attr("action", `/menu/save/${result.id}`);
+                $("input#menu").val(result.menu);
+                $("#icon").val(result.icon);
+            }
+        })
+    });
+</script>
+<?= $this->endSection(); ?>

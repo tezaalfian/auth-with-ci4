@@ -80,19 +80,15 @@
                             <div class="form-group">
                                 <label for="">Role</label>
                                 <?php foreach ($role as $key) : ?>
-                                    <div class="form-check" style="padding: 0;">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="<?= $key['id']; ?>" name="role[]">
-                                            <span class="form-check-sign"><?= $key['role']; ?></span>
-                                        </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="<?= $key['id']; ?>" name="role[]">
+                                        <label class="form-check-label"><?= $key['role']; ?></label>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="card-action">
-                <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>
         </div>

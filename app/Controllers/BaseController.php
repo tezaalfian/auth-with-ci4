@@ -42,11 +42,11 @@ class BaseController extends Controller
 		$this->validation = \Config\Services::validation();
 		// $this->userModel = new \App\Models\UserModel();
 		\Cloudinary::config([
-            "cloud_name" => "dehterav1",
-            "api_key" => "532228328198242", 
-            "api_secret" => "mZDGdZg2JYpWljTDAp0eqDgDQgo", 
-            "secure" => true
-        ]);
+			"cloud_name" => "dmmcpkwj9",
+			"api_key" => "593936871131434",
+			"api_secret" => "583zcNQHlv0kKUBANmgTMz4QAT0",
+			"secure" => true
+		]);
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
