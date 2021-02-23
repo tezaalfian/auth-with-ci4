@@ -23,6 +23,7 @@ class Rombel extends BaseController
     public function aktif()
     {
         $data['rombel'] = $this->RombelModel->rombelAktif();
+        // dd($data['rombel']);
         $data['kelas'] = $this->KelasModel->orderBy('tingkat', 'asc')->find();
         return view('admin/rombel/aktif', $data);
     }
@@ -83,14 +84,20 @@ class Rombel extends BaseController
     public function addSantri()
     {
         if ($this->request->getPost()) {
-            $data = [
-                'santri_id' => $this->request->getPost('santri_id'),
-                'rombel_id' => $this->request->getPost('rombel_id')
-            ];
-            $cek = $this->RombelModel->isInserted($data);
-            if (is_null($cek)) {
-                $this->RombelModel->addSantri($data);
-                echo json_encode(['message' => 'Data berhasil disimpan!']);
+            try {
+                foreach ($this->request->getPost('santri_id') as $key) {
+                    $data = [
+                        'santri_id' => $key,
+                        'rombel_id' => $this->request->getPost('rombel_id')
+                    ];
+                    $cek = $this->RombelModel->isInserted($data);
+                    if (is_null($cek)) {
+                        $this->RombelModel->addSantri($data);
+                    }
+                }
+                echo json_encode(['status' => 'success', 'message' => 'Data berhasil ditambahkan!']);
+            } catch (\Throwable $th) {
+                echo json_encode(['status' => 'error', 'message' => 'Data gagal ditambahkan!']);
             }
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -100,15 +107,11 @@ class Rombel extends BaseController
     public function removeSantri()
     {
         if ($this->request->getPost()) {
-            $data = [
-                'santri_id' => $this->request->getPost('santri_id'),
-                'rombel_id' => $this->request->getPost('rombel_id')
-            ];
             try {
-                $this->RombelModel->removeSantri($data);
-                echo json_encode(['message' => 'Data berhasil dihapus!']);
+                $this->RombelModel->removeSantri();
+                echo json_encode(['status' => 'success', 'message' => 'Data berhasil dihapus!']);
             } catch (\Throwable $th) {
-                echo json_encode(['message' => 'Data gagal dihapus!']);
+                echo json_encode(['status' => 'error', 'message' => 'Data gagal dihapus!']);
             }
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();

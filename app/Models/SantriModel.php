@@ -31,6 +31,7 @@ class SantriModel extends Model
             // "`kelas`.`tingkat` = (SELECT `kelas`.`tingkat` FROM `rombel` JOIN `kelas` ON `kelas`.`id` = `rombel`.`kelas_id` WHERE `rombel`.`id` = " . $_GET['rombel_id'] . " ORDER BY `kelas`.`tingkat` DESC LIMIT 1)-1"
             $this->where("`kelas`.`tingkat` = (SELECT `kelas`.`tingkat` FROM `rombel` JOIN `kelas` ON `kelas`.`id` = `rombel`.`kelas_id` WHERE `rombel`.`id` = " . $_GET['rombel_id'] . " ORDER BY `kelas`.`tingkat` DESC LIMIT 1)-1");
             $this->where("`rombel`.`ta_id` = (SELECT `tahun_ajaran`.`id` FROM `tahun_ajaran` WHERE `tahun_ajaran`.`tingkat` < " . $ta_aktif['tingkat'] . " ORDER BY `tahun_ajaran`.`tingkat` DESC LIMIT 1)");
+            $this->where("`rombel_detail`.`santri_id` NOT IN (SELECT `rombel_detail`.`santri_id` FROM `rombel_detail` JOIN `rombel` ON `rombel`.`id` = `rombel_detail`.`rombel_id` WHERE `rombel`.`ta_id` = '" . $ta_aktif['id'] . "')");
         } else {
             if (isset($_GET['rombel_id'])) {
                 // var_dump($_GET['rombel_id']);die;

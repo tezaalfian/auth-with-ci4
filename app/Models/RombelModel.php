@@ -39,10 +39,12 @@ class RombelModel extends Model
         $this->db->table("rombel_detail")->insert($data);
     }
 
-    public function removeSantri($data)
+    public function removeSantri()
     {
         // $this->db->table("rombel_detail")->insertBatch($data);
-        $this->db->table("rombel_detail")->delete($data);
+        $this->db->table("rombel_detail")->whereIn("santri_id", $_POST['santri_id'])->where(['rombel_id' => $_POST['rombel_id']])->delete();
+        // var_dump($this->db->table("rombel_detail")->whereIn("santri_id", $_POST['santri_id'])->get()->getResultArray());
+        // die;
     }
 
     public function isInserted($data)

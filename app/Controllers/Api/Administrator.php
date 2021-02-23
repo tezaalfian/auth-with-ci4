@@ -20,6 +20,7 @@ class Administrator extends ResourceController
     public function listSantriRombel()
     {
         $this->santriModel = new \App\Models\SantriModel();
+        // dd($this->santriModel->get_datatables());
         return $this->respond($this->santriModel->get_datatables());
     }
 

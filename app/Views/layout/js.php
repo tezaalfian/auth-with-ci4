@@ -11,6 +11,7 @@
     $(document).ajaxStart(function() {
         Pace.restart();
     });
+
     function myAlert(title) {
         const flashdata = $('.flash-data').attr('data');
         if (flashdata) {
