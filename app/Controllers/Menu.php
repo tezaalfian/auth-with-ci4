@@ -24,6 +24,8 @@ class Menu extends BaseController
 			$menu = $this->menuModel->orderBy('num_order', 'desc')->first();
 			$data = [
 				'menu' => $input['menu'],
+				'nama_menu' => empty($input['nama_menu']) ? null : $input['nama_menu'],
+				'url' => empty($input['url']) ? null : $input['url'],
 				'icon' => $input['icon'],
 				'num_order' => (int)$menu['num_order'] + 1
 			];

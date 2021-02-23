@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?= $this->include("admin/layout/css") ?>
+    <?= $this->include("layout/css") ?>
 </head>
 
 <body class="hold-transition login-page">
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <?= $this->include("admin/layout/js") ?>
+    <?= $this->include("layout/js") ?>
     <script>
         myAlert("<?= SITE_NAME ?>")
     </script>

@@ -9,7 +9,7 @@
     $user = $userModel->getUser(session()->get("id_user"));
     $listMenu = $menuModel->listMenu();
     ?>
-    <?= $this->include("admin/layout/css") ?>
+    <?= $this->include("layout/css") ?>
     <?= $this->renderSection("myStyle"); ?>
 </head>
 
@@ -96,10 +96,10 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <?php foreach ($listMenu as $key) : ?>
                             <li class="nav-item <?= $url->getSegment(1) == strtolower($key['menu']) ? "menu-open" : "" ?>">
-                                <a href="<?= count($key['sub_menu']) > 0 ? "#" . strtolower($key['menu']) : "/" . strtolower($key['menu']) ?>" class="nav-link <?= $url->getSegment(1) == strtolower($key['menu']) ? "active" : "" ?>">
+                                <a href="<?= count($key['sub_menu']) > 0 ? "#" . strtolower($key['menu']) : is_null($key['url']) ? "/" . strtolower($key['menu']) : strtolower($key['url']) ?>" class="nav-link <?= $url->getSegment(1) == strtolower($key['menu']) ? "active" : "" ?>">
                                     <i class="nav-icon <?= $key['icon']; ?>"></i>
                                     <p>
-                                        <?= ucwords($key['menu']) ?>
+                                        <?= ucwords($key['nama_menu']) ?>
                                         <?= count($key['sub_menu']) > 0 ? "<i class='right fas fa-angle-left'></i>" : ""; ?>
                                     </p>
                                 </a>
@@ -167,7 +167,7 @@
             </div>
         </div>
 
-        <?= $this->include("admin/layout/footer") ?>
+        <?= $this->include("layout/footer") ?>
     </div>
     <div class="modal fade" id="modal-delete" tabindex="-1">
         <div class="modal-dialog">
@@ -192,7 +192,7 @@
             </div>
         </div>
     </div>
-    <?= $this->include("admin/layout/js") ?>
+    <?= $this->include("layout/js") ?>
     <script>
         $(document).on("click", '.set-role', function() {
             window.location.replace(`/auth/set_role/${$(this).data('nilai')}`)

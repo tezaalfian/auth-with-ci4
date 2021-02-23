@@ -1,0 +1,43 @@
+.list-search {
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    z-index: 9999;
+    border-radius: 5px;
+    box-shadow: 0 0 9px 0px rgba(0, 0, 0, 0.2);
+    padding: 15px 10px;
+    text-align: left;
+    max-height: 50vh;
+    overflow-y: scroll;
+    display: none;
+}
+
+.list-search ul {
+    margin: 0;
+    padding: 0;
+}
+
+.list-search ul li {
+    list-style: none;
+    transition: 0.5s;
+    margin-bottom: 8px;
+    display: flex;
+    cursor: pointer;
+}
+
+.list-search ul li .img-cover {
+    width: 15%;
+    max-height: 70px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-right: 7px;
+}
+
+.list-search ul li .content {
+    width: 85%;
+}
+
+.list-search ul li .content h6 {
+    margin: 0;
+}

@@ -7,13 +7,14 @@ use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 use App\Models\UserModel;
 
-class Auth implements FilterInterface
+class Access implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->get("isloggedin")) {
-            session()->set(['prevUrl' => uri_string()]);
-            return redirect()->to('/login');
+        $userModel = new UserModel();
+        $data = $userModel->isAccessed();
+        if (count($data) < 1) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 

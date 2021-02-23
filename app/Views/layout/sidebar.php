@@ -48,7 +48,7 @@ $listMenu = $menuModel->listMenu();
                         <a href="<?= count($key['sub_menu']) > 0 ? "#" . strtolower($key['menu']) : "/" . strtolower($key['menu']) ?>" class="nav-link <?= $url->getSegment(1) == strtolower($key['menu']) ? "active" : "" ?>">
                             <i class="nav-icon <?= $key['icon']; ?>"></i>
                             <p>
-                                <?= ucwords($key['menu']) ?>
+                                <?= ucwords($key['nama_menu']) ?>
                                 <?= count($key['sub_menu']) > 0 ? "<i class='right fas fa-angle-left'></i>" : ""; ?>
                             </p>
                         </a>
@@ -68,7 +68,5 @@ $listMenu = $menuModel->listMenu();
                 <?php endforeach; ?>
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>

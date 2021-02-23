@@ -1,4 +1,4 @@
-<?= $this->extend("admin/template"); ?>
+<?= $this->extend("layout/template"); ?>
 <?= $this->section("content"); ?>
 <div class="row">
     <div class="col-md-12">
@@ -7,7 +7,6 @@
                 <div class="card-title">Edit User</div>
             </div>
             <div class="card-body">
-                <?= $this->include('admin/layout/alert'); ?>
                 <form action="/users/update/<?= $users['id']; ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <div class="row">

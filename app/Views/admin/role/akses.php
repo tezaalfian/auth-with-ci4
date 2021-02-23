@@ -1,4 +1,4 @@
-<?= $this->extend("admin/template"); ?>
+<?= $this->extend("layout/template"); ?>
 <?= $this->section("content"); ?>
 <div class="row">
     <div class="col-md-12">
@@ -17,6 +17,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Menu</th>
+                                        <th>Nama Menu</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -29,6 +30,7 @@
                                         foreach ($menu as $key) : ?>
                                             <tr>
                                                 <td><?= $no++; ?></td>
+                                                <td><?= ucwords($key['nama_menu']); ?></td>
                                                 <td><?= ucfirst($key['menu']); ?></td>
                                                 <td><input type="checkbox" name="menu[]" value="<?= $key['id']; ?>" <?= is_accessed($role['id'], $key['id']) ?>></td>
                                             </tr>

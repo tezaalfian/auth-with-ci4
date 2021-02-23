@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class MenuModel extends Model
 {
     protected $table      = 'users_menu';
-    protected $allowedFields = ['id', 'menu', 'icon', 'num_order'];
+    protected $allowedFields = ['id', 'menu', 'icon', 'num_order', 'nama_menu', 'url'];
 
     public function deleteSub($id)
     {

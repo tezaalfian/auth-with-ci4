@@ -31,3 +31,8 @@ function random_code()
 {
     return strtoupper(base_convert(microtime(false), 8, 16));
 }
+function tahun_aktif()
+{
+    $db = \Config\Database::connect();
+    return $db->table("tahun_ajaran")->getWhere(['status' => 1])->getRowArray();
+}

@@ -6,7 +6,7 @@ class Dashboard extends BaseController
 {
 	public function index()
 	{
-		return view('admin/template');
+		return view('layout/template');
 	}
 
 	public function set_role($id)

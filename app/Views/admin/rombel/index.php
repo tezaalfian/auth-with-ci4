@@ -9,36 +9,36 @@
                         <i class="fa fa-plus"></i>
                         Tambah Data
                     </button>
-                    <a href="https://fontawesome.com/" class="btn btn-primary text-white" target="_blank">Show Icon</a>
                 </div>
             </div>
             <div class="card-body">
-                <table id="menu-table" class="table table-striped table-hover">
+                <h5 class="mb-3 font-weight-bold">Data Rombongan Belajar Tahun Ajaran <?= tahun_aktif()['tahun'] ?></h5>
+                <table id="rombel-table" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Menu</th>
-                            <th>Nama Menu</th>
-                            <th>Icon</th>
-                            <th>URL</th>
+                            <th>Kelas</th>
+                            <th>Rombel</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 1;
-                        foreach ($menu as $key) : ?>
+                        $kelas_id = "";
+                        foreach ($rombel as $key) : ?>
                             <tr>
-                                <td><?= $no++; ?></td>
-                                <td><?= ucfirst($key['menu']); ?></td>
-                                <td><?= ucfirst($key['nama_menu']); ?></td>
-                                <td><?= $key['icon']; ?></td>
-                                <td><?= $key['url']; ?></td>
+                                <?php if ($no == 1 || $kelas_id != $key['kelas_id']) : ?>
+                                    <td rowspan="<?= $key['jumlah']; ?>"><?= $no++; ?></td>
+                                    <td rowspan="<?= $key['jumlah']; ?>"><?= $key['nama_kelas']; ?></td>
+                                <?php endif; ?>
+                                <td><?= $key['nama_rombel']; ?></td>
                                 <td>
                                     <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
                                     <button style="display:inline;" type="button" class="btn btn-sm btn-danger btn-delete" data-nilai="<?= $key['id']; ?>" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php $kelas_id = $key['kelas_id'];
+                        endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -49,29 +49,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Data Menu</h5>
+                <h5 class="modal-title">Data Rombel</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/menu/save" method="post">
+                <form action="/rombel/save" method="post">
                     <?= csrf_field(); ?>
                     <div class="form-group">
-                        <label for="menu">Menu*</label>
-                        <input type="text" class="form-control" name="menu" id="menu" placeholder="Ex : Santri" required>
+                        <label>Kelas</label>
+                        <select name="kelas_id" id="kelas_id" class="form-control">
+                            <?php foreach ($kelas as $key) : ?>
+                                <option value="<?= $key['id']; ?>"><?= $key['nama_kelas']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="menu">Nama Menu</label>
-                        <input type="text" class="form-control" name="nama_menu" id="nama_menu" placeholder="Ex : Daftar Santri">
-                    </div>
-                    <div class="form-group">
-                        <label for="menu">URL</label>
-                        <input type="text" class="form-control" name="url" id="url" placeholder="Ex : daftar_santri">
-                    </div>
-                    <div class="form-group">
-                        <label for="icon">Icon</label>
-                        <input type="text" class="form-control" name="icon" id="icon" placeholder="Icon">
+                        <label>Rombel*</label>
+                        <input type="text" class="form-control" name="nama_rombel" id="nama_rombel" placeholder="Ex : IPA" required>
                     </div>
             </div>
             <div class="modal-footer">
@@ -86,29 +82,23 @@
 
 <?= $this->section("myScript"); ?>
 <script>
-    $('#menu-table').DataTable();
     $(document).on('click', '.btn-delete', function() {
-        $("#modal-delete form").attr("action", `/menu/delete/${$(this).data("nilai")}`);
+        $("#modal-delete form").attr("action", `/rombel/delete/${$(this).data("nilai")}`);
     });
-    myAlert("Data Menu");
+    myAlert("Data Rombel");
     $(document).on('click', '#btn-add', function() {
-        $('#modal-save form').attr("action", "/menu/save");
-        $("input#menu").val("");
-        $("#nama_menu").val("");
-        $("#url").val("");
-        $("#icon").val("");
+        $('#modal-save form').attr("action", "/rombel/save");
+        $("#nama_rombel").val("");
     });
 
     $(document).on("click", ".btn-edit", function() {
         $.ajax({
-            url: `<?= '/api/menu/show/' ?>${$(this).data('nilai')}`,
+            url: `<?= '/api/administrator/rombelDetail/' ?>${$(this).data('nilai')}`,
             dataType: "json",
             success: function(result) {
-                $('#modal-save form').attr("action", `/menu/save/${result.id}`);
-                $("input#menu").val(result.menu);
-                $("#nama_menu").val(result.nama_menu);
-                $("#url").val(result.url);
-                $("#icon").val(result.icon);
+                $('#modal-save form').attr("action", `/rombel/save/${result.id}`);
+                $("#nama_rombel").val(result.nama_rombel);
+                $("#kelas_id").val(result.kelas_id);
             }
         })
     });

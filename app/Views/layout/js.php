@@ -8,6 +8,9 @@
 <script src="/assets/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
+    $(document).ajaxStart(function() {
+        Pace.restart();
+    });
     function myAlert(title) {
         const flashdata = $('.flash-data').attr('data');
         if (flashdata) {

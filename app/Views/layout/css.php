@@ -16,3 +16,4 @@
 <link rel="stylesheet" href="/assets/css/adminlte.min.css">
 <link rel="stylesheet" href="/assets/css/pace-theme-flat-top.css">
 <link rel="stylesheet" href="/assets/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/assets/css/style.css">

@@ -1,4 +1,4 @@
-<?= $this->extend("admin/template"); ?>
+<?= $this->extend("layout/template"); ?>
 <?= $this->section("content"); ?>
 <div class="row">
     <div class="col-md-12">
@@ -62,7 +62,7 @@
                         <label for="menu">Menu</label>
                         <select name="menu" id="menu" class="form-control">
                             <?php foreach ($menu as $key) : ?>
-                                <option value="<?= $key['id']; ?>"><?= $key['menu']; ?></option>
+                                <option value="<?= $key['id']; ?>"><?= $key['nama_menu'] . " | " . $key['menu']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

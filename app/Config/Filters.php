@@ -13,6 +13,7 @@ class Filters extends BaseConfig
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'auth'     => \App\Filters\Auth::class,
+		'user_akses'     => \App\Filters\Access::class
 	];
 
 	// Always applied before every request
@@ -20,7 +21,8 @@ class Filters extends BaseConfig
 		'before' => [
 			//'honeypot'
 			// 'csrf',
-			'auth' => ['except' => ['login', 'logout', 'api/*', 'auth/set_role/*']]
+			'auth' => ['except' => ['login']],
+			'user_akses' => ['except' => ['login', 'api/*', 'auth/set_role/*', 'logout']]
 		],
 		'after'  => [
 			// 'toolbar',
