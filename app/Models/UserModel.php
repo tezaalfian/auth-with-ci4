@@ -98,7 +98,9 @@ class UserModel extends Model
     {
         $column_order = [null, 'users.username', 'users.nama', 'users.email', 'users.no_hp', null];
         $column_search = ['users.username', 'users.nama', 'users.email', 'users.no_hp'];
-        $this->select("users.*, users_role_access.role_id");
+        $select = "users.*, users_role_access.role_id";
+        if (isset($_GET['select'])) $select = $_GET['select'];
+        $this->select($select);
         $this->join("users_role_access", "users_role_access.user_id = users.id", "left");
         $this->groupBy("users.id");
         if (isset($_GET['role_id'])) {
@@ -107,6 +109,15 @@ class UserModel extends Model
             } else {
                 $this->where("users_role_access.role_id", $_GET['role_id']);
             }
+        }
+        if (isset($_GET['status'])) {
+            $this->where("users.status", $_GET['status']);
+        }
+        if (isset($_GET['rombel_id'])) {
+            $this->join("walas", "walas.walas_id = users.id", "left");
+            $this->join("rombel", "walas.rombel_id = rombel.id", "left");
+            $_GET['rombel_id'] = empty($_GET['rombel_id']) ? null : $_GET['rombel_id'];
+            $this->where(["walas.rombel_id" => $_GET['rombel_id']]);
         }
         $i = 0;
         foreach ($column_search as $item) {

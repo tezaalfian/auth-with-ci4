@@ -22,33 +22,37 @@
                         </div>
                     </div>
                 </div>
-                <table id=" rombel-table" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Rombel</th>
-                            <th>Jumlah</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $no = 1;
-                        $kelas_id = "";
-                        foreach ($rombel as $key) : ?>
+                <div class="table-responsive">
+                    <table id=" rombel-table" class="table table-bordered table-hover">
+                        <thead>
                             <tr>
-                                <td><?= $no++; ?></td>
-                                <td><?= $key['nama_kelas'] . " - " . $key['nama_rombel'] ?></td>
-                                <td><?= $key['jumlah']?> Santri</td>
-                                <td>
-                                    <a href="/rombel/detail/<?= $key['id']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-bars"></i> Detail</a>
-                                    <a href="/rombel/setSantri/<?= $key['id']; ?>" class="btn btn-success btn-sm"><i class="fas fa-user"></i> Atur Santri</a>
-                                    <a href="/rombel/setWalas/<?= $key['id']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-user-tie"></i> Atur Walas</a>
-                                </td>
+                                <th>No</th>
+                                <th>Rombel</th>
+                                <th>Jumlah Santri</th>
+                                <th>Jumlah Walas</th>
+                                <th>Aksi</th>
                             </tr>
-                        <?php $kelas_id = $key['kelas_id'];
-                        endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1;
+                            $kelas_id = "";
+                            foreach ($rombel as $key) : ?>
+                                <tr>
+                                    <td><?= $no++; ?></td>
+                                    <td><?= $key['nama_kelas'] . " - " . $key['nama_rombel'] ?></td>
+                                    <td><?= $key['jumlah'] ?> Santri</td>
+                                    <td><?= $key['jumlah_walas'] ?> Orang</td>
+                                    <td>
+                                        <a href="/rombel/detail/<?= $key['id']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-bars"></i> Detail</a>
+                                        <a href="/rombel/setSantri/<?= $key['id']; ?>" class="btn btn-success btn-sm"><i class="fas fa-user"></i> Atur Santri</a>
+                                        <a href="/rombel/setWalas/<?= $key['id']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-user-tie"></i> Atur Walas</a>
+                                    </td>
+                                </tr>
+                            <?php $kelas_id = $key['kelas_id'];
+                            endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

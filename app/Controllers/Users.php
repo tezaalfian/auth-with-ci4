@@ -6,11 +6,12 @@ class Users extends BaseController
 {
 	private $userModel;
 	private $menuModel;
-
+	private $cloudLib;
 	public function __construct()
 	{
 		$this->userModel = new \App\Models\UserModel();
 		$this->menuModel = new \App\Models\MenuModel();
+		$this->cloudLib = new \App\Libraries\CloudinaryLib();
 	}
 	public function index()
 	{
@@ -93,19 +94,20 @@ class Users extends BaseController
 		$file = $this->request->getFile("foto");
 		if ($file->getError() != 4) {
 			try {
-				$fotoLama = "spu-app/users/$id";
+				$fotoLama = "users/$id";
 				if ($userLama['foto'] != FOTO_USER) {
 					$fotoLama = explode("/", $userLama['foto']);
 					unset($fotoLama[0]);
 					$fotoLama = implode("/", $fotoLama);
-					\Cloudinary\Uploader::destroy($fotoLama);
+					$this->cloudLib->upload->destroy($fotoLama);
 				}
-				$foto = \Cloudinary\Uploader::upload(
+				$foto = $this->cloudLib->upload->upload(
 					$file->getTempName(),
 					array("public_id" => $fotoLama)
 				);
 				$data['foto'] = "v" . $foto['version'] . "/" . $foto['public_id'];
 			} catch (\Throwable $th) {
+				dd($th->getMessage());
 				session()->setFlashdata("message", "Upload foto gagal! silahkan coba beberapa saat lagi!");
 			}
 		}
@@ -155,13 +157,14 @@ class Users extends BaseController
 		$data['foto'] = FOTO_USER;
 		if ($file->getError() != 4) {
 			try {
-				$foto = \Cloudinary\Uploader::upload(
+				$foto = $this->cloudLib->upload->upload(
 					$file->getTempName(),
-					array("public_id" => "spu-app/users/$id")
+					array("public_id" => "users/$id")
 				);
 				// dd($foto);
 				$data['foto'] = "v" . $foto['version'] . "/" . $foto['public_id'];
 			} catch (\Throwable $th) {
+				dd($th->getMessage());
 				session()->setFlashdata("message", "Upload foto gagal! silahkan coba beberapa saat lagi!");
 			}
 		}

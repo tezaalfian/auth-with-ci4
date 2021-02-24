@@ -23,7 +23,6 @@ class Rombel extends BaseController
     public function aktif()
     {
         $data['rombel'] = $this->RombelModel->rombelAktif();
-        // dd($data['rombel']);
         $data['kelas'] = $this->KelasModel->orderBy('tingkat', 'asc')->find();
         return view('admin/rombel/aktif', $data);
     }
@@ -67,6 +66,26 @@ class Rombel extends BaseController
         }
     }
 
+    public function pindah()
+    {
+        $data['rombel'] = $this->RombelModel->rombelAktif();
+        return view('admin/rombel/pindah', $data);
+    }
+
+    public function detail($id = null)
+    {
+        if (!is_null($id)) {
+            $data['rombel'] = $this->RombelModel->rombelAktif($id);
+            if (!is_null($data['rombel'])) {
+                return view('admin/rombel/detail', $data);
+            } else {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
     public function setSantri($id = null)
     {
         if (!is_null($id)) {
@@ -75,6 +94,43 @@ class Rombel extends BaseController
                 return view('admin/rombel/set_santri', $data);
             } else {
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    public function setWalas($id = null)
+    {
+        if (!is_null($id)) {
+            $data['rombel'] = $this->RombelModel->rombelAktif($id);
+            if (!is_null($data['rombel'])) {
+                return view('admin/rombel/set_walas', $data);
+            } else {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    public function addwalas()
+    {
+        if ($this->request->getPost()) {
+            try {
+                foreach ($this->request->getPost('walas_id') as $key) {
+                    $data = [
+                        'walas_id' => $key,
+                        'rombel_id' => $this->request->getPost('rombel_id')
+                    ];
+                    $cek = $this->RombelModel->isInserted($data, "walas");
+                    if (is_null($cek)) {
+                        $this->RombelModel->addWalas($data);
+                    }
+                }
+                echo json_encode(['status' => 'success', 'message' => 'Data berhasil ditambahkan!']);
+            } catch (\Throwable $th) {
+                echo json_encode(['status' => 'error', 'message' => $th->getMessage()]);
             }
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -109,6 +165,37 @@ class Rombel extends BaseController
         if ($this->request->getPost()) {
             try {
                 $this->RombelModel->removeSantri();
+                echo json_encode(['status' => 'success', 'message' => 'Data berhasil dihapus!']);
+            } catch (\Throwable $th) {
+                echo json_encode(['status' => 'error', 'message' => 'Data gagal dihapus!']);
+            }
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    public function removeWalas()
+    {
+        if ($this->request->getPost()) {
+            try {
+                $this->RombelModel->removeWalas();
+                echo json_encode(['status' => 'success', 'message' => 'Data berhasil dihapus!']);
+            } catch (\Throwable $th) {
+                echo json_encode(['status' => 'error', 'message' => 'Data gagal dihapus!']);
+            }
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    public function editSantri()
+    {
+        if ($this->request->getPost()) {
+            try {
+                $this->RombelModel->editSantri([
+                    'santri_id' => $this->request->getPost("santri_id"),
+                    'rombel_id' => $this->request->getPost("origin")
+                ], ['rombel_id' => $this->request->getPost("dest")]);
                 echo json_encode(['status' => 'success', 'message' => 'Data berhasil dihapus!']);
             } catch (\Throwable $th) {
                 echo json_encode(['status' => 'error', 'message' => 'Data gagal dihapus!']);

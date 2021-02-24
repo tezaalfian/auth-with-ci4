@@ -55,7 +55,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="avatar avatar-xxl">
-                                        <img src="<?= CLOUD_URL . "w_200/" . $users['foto'] ?>" alt="..." class="avatar-img rounded-circle">
+                                        <img src="<?= CLOUD_URL . "w_200/" . $users['foto'] ?>" alt="..." class="img-thumbnail">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

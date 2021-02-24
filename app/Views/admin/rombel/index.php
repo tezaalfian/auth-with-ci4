@@ -13,34 +13,36 @@
             </div>
             <div class="card-body">
                 <h5 class="mb-3 font-weight-bold">Data Rombongan Belajar Tahun Ajaran <?= tahun_aktif()['tahun'] ?></h5>
-                <table id="rombel-table" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kelas</th>
-                            <th>Rombel</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $no = 1;
-                        $kelas_id = "";
-                        foreach ($rombel as $key) : ?>
+                <div class="table-responsive">
+                    <table id="rombel-table" class="table table-bordered table-hover">
+                        <thead>
                             <tr>
-                                <?php if ($no == 1 || $kelas_id != $key['kelas_id']) : ?>
-                                    <td rowspan="<?= $key['jumlah']; ?>"><?= $no++; ?></td>
-                                    <td rowspan="<?= $key['jumlah']; ?>"><?= $key['nama_kelas']; ?></td>
-                                <?php endif; ?>
-                                <td><?= $key['nama_rombel']; ?></td>
-                                <td>
-                                    <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
-                                    <button style="display:inline;" type="button" class="btn btn-sm btn-danger btn-delete" data-nilai="<?= $key['id']; ?>" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
-                                </td>
+                                <th>No</th>
+                                <th>Kelas</th>
+                                <th>Rombel</th>
+                                <th>Aksi</th>
                             </tr>
-                        <?php $kelas_id = $key['kelas_id'];
-                        endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1;
+                            $kelas_id = "";
+                            foreach ($rombel as $key) : ?>
+                                <tr>
+                                    <?php if ($no == 1 || $kelas_id != $key['kelas_id']) : ?>
+                                        <td rowspan="<?= $key['jumlah']; ?>"><?= $no++; ?></td>
+                                        <td rowspan="<?= $key['jumlah']; ?>"><?= $key['nama_kelas']; ?></td>
+                                    <?php endif; ?>
+                                    <td><?= $key['nama_rombel']; ?></td>
+                                    <td>
+                                        <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
+                                        <button style="display:inline;" type="button" class="btn btn-sm btn-danger btn-delete" data-nilai="<?= $key['id']; ?>" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            <?php $kelas_id = $key['kelas_id'];
+                            endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

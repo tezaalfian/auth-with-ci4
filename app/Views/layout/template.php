@@ -14,6 +14,9 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
+    <div id="loading-overlay">
+        <div class="loading-icon"></div>
+    </div>
     <div class="wrapper">
         <!-- header -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -74,7 +77,7 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="<?= CLOUD_URL . "w_100/" . $user['foto'] ?>" class="img-circle elevation-2" alt="User Image">
+                        <img src="<?= CLOUD_URL . "w_100/" . $user['foto'] ?>" class="img-circle elevation-2 avatar-img" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block"><?= $user['nama'] ?></a>
@@ -150,7 +153,10 @@
                                         <?php if ($is_active) : ?>
                                             <?php echo ucfirst($segment) ?>
                                         <?php else : ?>
-                                            <a href="<?php echo base_url($uri) ?>"><?php echo ucfirst($segment) ?></a>
+                                            <a href="<?php
+                                                        // echo base_url($uri)
+                                                        echo "#";
+                                                        ?>"><?php echo ucfirst($segment) ?></a>
                                         <?php endif; ?>
                                     </li>
                                 <?php endforeach; ?>

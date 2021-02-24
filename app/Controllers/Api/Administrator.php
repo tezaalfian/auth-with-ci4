@@ -24,6 +24,13 @@ class Administrator extends ResourceController
         return $this->respond($this->santriModel->get_datatables());
     }
 
+    public function listWalasRombel()
+    {
+        $userModel = new \App\Models\UserModel();
+        // dd($this->santriModel->get_datatables());
+        return $this->respond($userModel->get_datatables());
+    }
+
     public function kelasDetail($id = null)
     {
         $kelasModel = new \App\Models\KelasModel();

@@ -18,7 +18,7 @@ class SantriModel extends Model
         // dd($ta_aktif);
         $column_order = array(null, 'nis', 'nama', null, null); //field yang ada di table user
         $column_search = array('nis', 'nama');
-        $select = "santri.nama, santri.nis, santri.jk, santri.id, santri.foto, santri.password, concat(kelas.nama_kelas,'-',rombel.nama_rombel) as kelas";
+        $select = "santri.nama, santri.nis, santri.nisn, santri.tgl_lahir, santri.tempat_lahir, santri.nik, santri.jk, santri.id, santri.foto, santri.password, concat(kelas.nama_kelas,'-',rombel.nama_rombel) as kelas";
         if (isset($_GET['select'])) $select = $_GET['select'];
         $this->select($select);
         $this->join("rombel_detail", "rombel_detail.santri_id = santri.id", 'left');
