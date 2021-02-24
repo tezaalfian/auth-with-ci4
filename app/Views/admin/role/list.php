@@ -17,6 +17,7 @@
                         <tr>
                             <th>No</th>
                             <th>Role</th>
+                            <th>Icon</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -26,6 +27,7 @@
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td><?= ucfirst($key['role']); ?></td>
+                                <td><?= $key['icon'] ?></td>
                                 <td>
                                     <button data-toggle="modal" data-target="#modal-save" data-nilai="<?= $key['id']; ?>" class="btn btn-sm btn-success btn-edit"><i class="fa fa-edit"></i></button>
                                     <a href="/users/user_akses/<?= $key['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-info-circle"></i> Akses</a>
@@ -54,10 +56,10 @@
                         <label for="role">Role</label>
                         <input type="text" class="form-control" name="role" id="role" placeholder="role" required>
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="icon">Icon</label>
                         <input type="text" class="form-control" name="icon" id="icon" placeholder="Icon" required>
-                    </div> -->
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -79,6 +81,7 @@
     $(document).on('click', '#btn-add', function() {
         $('#modal-save form').attr("action", "/users/saveRole");
         $("#role").val("");
+        $("#icon").val("");
     });
 
     $(document).on("click", ".btn-edit", function() {
@@ -88,6 +91,7 @@
             success: function(result) {
                 $('#modal-save form').attr("action", `/users/saveRole/${result.id}`);
                 $("#role").val(result.role);
+                $("#icon").val(result.icon);
             }
         })
     });

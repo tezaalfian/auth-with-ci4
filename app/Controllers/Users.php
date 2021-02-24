@@ -27,6 +27,24 @@ class Users extends BaseController
 		return view('admin/users/add', $data);
 	}
 
+	public function reset($id)
+	{
+		if ($this->request->getPost()) {
+			// dd($this->request->getPost());
+			try {
+				$newPass = substr(strtolower(random_code()), 0, 5);
+				$this->userModel->save(['id' => $id, 'password' => password_hash($newPass, PASSWORD_DEFAULT)]);
+				session()->setFlashdata('success', 'Password berhasil direset!');
+				session()->setFlashdata('newPassword', $newPass);
+			} catch (\Throwable $th) {
+				session()->setFlashdata('error', 'Password gagal direset');
+			}
+			return redirect()->to('/users/edit/' . $id);
+		} else {
+			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+		}
+	}
+
 	public function delete($id)
 	{
 		// if ($this->request->getPost()) {
@@ -195,6 +213,7 @@ class Users extends BaseController
 		if ($this->request->getPost()) {
 			$data = [
 				'role' => $this->request->getVar("role"),
+				'icon' => $this->request->getVar("icon"),
 				'created_at' => date("Y-m-d H:i:s"),
 				'updated_at' => date("Y-m-d H:i:s")
 			];

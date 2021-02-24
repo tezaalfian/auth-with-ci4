@@ -35,7 +35,7 @@
                 <?php if (count($user['role']) > 1) : ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="far fa-bell"></i>
+                            <i class="far fa-folder-open"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <span class="dropdown-header"><?= count($user['role']) ?> Modul</span>
@@ -43,7 +43,7 @@
                             <?php foreach ($user['role'] as $key) : ?>
                                 <a href="#" class="dropdown-item set-role" data-nilai="<?= $key; ?>">
                                     <?php $role = $userModel->getRole($key); ?>
-                                    <?= $role['role']; ?>
+                                    <i class="<?= $role['icon']; ?> mr-2"></i> <?= $role['role']; ?>
                                 </a>
                             <?php endforeach; ?>
                         </div>

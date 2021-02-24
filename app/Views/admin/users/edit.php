@@ -5,8 +5,17 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">Edit User</div>
+                <button type="button" class="btn btn-danger btn-reset float-right" data-nilai="<?= $users['id']; ?>" data-toggle="modal" data-target="#modal-delete">Reset Password</button>
             </div>
             <div class="card-body">
+                <?php if (session()->getFlashdata('newPassword')) : ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Password baru setelah direset : </strong><?= session()->getFlashdata('newPassword') ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
                 <form action="/users/update/<?= $users['id']; ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <div class="row">
@@ -111,5 +120,9 @@
         label.textContent = foto.files[0].name;
     }
     myAlert("Data User");
+    $(document).on('click', '.btn-reset', function() {
+        $('#modal-delete .modal-body p').text("Password akan direset dengan yang baru!");
+        $("#modal-delete form").attr("action", `/users/reset/${$(this).data("nilai")}`);
+    });
 </script>
 <?= $this->endSection(); ?>
