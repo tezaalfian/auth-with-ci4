@@ -48,7 +48,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `nama`, `jk`, `email`, `no_hp`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('1605656263', 'admin', '$2y$10$zUWXutLl2C.xbDD9KGtyYups3Y6ZHhjLzPq.cyGG.nmQ8yWwTKxsO', 'Tahfizh Dulido', NULL, '', '', 'v1605616492/spu-app/users/1605616208', 1, '2020-11-17 06:30:11', '2020-11-17 06:30:11', NULL),
 ('1605661219', 'alfian', '$2y$10$zxyIFac8AHalf9AVJi1biePuv.jAm1OIUDdWoQq.syL3AOJUwbjJm', 'Teza Alfian', NULL, 'teza@tahfizhdulido.com', '085719994048', 'v1605661503/spu-app/users/1605661219', 1, '2020-11-17 19:00:21', '2020-11-17 19:00:21', NULL),
 ('1605728016', 'ahmad', '$2y$10$5wOl8KZHGlI52Ng8mTJabuvf8aPms8KmAHTgkzaCM99V/.gTtb4Mi', 'ahmad juna', NULL, '', '', 'v1605594452/spu-app/users/default.png', 1, '2020-11-18 13:33:36', '2020-11-18 13:40:55', '2020-11-18 13:40:55'),
 ('1605738092', 'tes', '$2y$10$3lphXkNhxQX3pMF.IA.fPO/mW/GL1l1nCpj.Ew1974wrvff6sDaE.', 'tes nama', NULL, '', '', 'v1605594452/spu-app/users/default.png', 1, '2020-11-18 16:21:32', '2020-11-18 16:21:54', '2020-11-18 16:21:54'),
@@ -136,8 +135,6 @@ CREATE TABLE `users_role_access` (
 --
 
 INSERT INTO `users_role_access` (`id`, `role_id`, `user_id`) VALUES
-(1, 1, '1605656263'),
-(2, 2, '1605656263'),
 (3, 1, '1605661219'),
 (4, 2, '1605661219'),
 (13, 2, '1605799668');
